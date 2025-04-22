@@ -51,11 +51,11 @@ export class FormStateValidation<T extends { [field: string]: any }> implements 
   }
 
   get touched() {
-    return this._stateTrackers.errorStateTracker.state || {};
+    return this._stateTrackers.touchedStateTracker.state || {};
   }
 
   get dirty() {
-    return this._stateTrackers.errorStateTracker.state || {};
+    return this._stateTrackers.dirtyStateTracker.state || {};
   }
 
   private setErrorFlatList(errors: IValidationErrorMessage[]) {
