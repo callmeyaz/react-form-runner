@@ -4,7 +4,7 @@ import { FormVaidationConfig } from "../types/FormVaidationConfig";
 import { FormFieldState } from "../types/FormFieldState";
 import { forEach, map, some } from "lodash-es";
 import { IValidationErrorMessage } from "../types/IValidationErrorMessage";
-import { flattenObjectToArray } from "../Utils";
+import { flattenObjectToArray } from "../utils";
 
 export function useFormFieldState<T extends { [field: string]: any }>(dataObject: T, config?: FormVaidationConfig) {
   const [errorFlatList, setErrorFlatList] = useState<IValidationErrorMessage[]>([]);
