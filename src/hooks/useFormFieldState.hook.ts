@@ -1,19 +1,25 @@
-import { useState } from "react";
-import { useStateTrackers } from "./use-state-trackers.hook";
+import { useRef, useState } from "react";
 import { FormVaidationConfig } from "../types/FormVaidationConfig";
 import { FormFieldState } from "../types/FormFieldState";
 import { forEach, map, some } from "lodash-es";
 import { IValidationErrorMessage } from "../types/IValidationErrorMessage";
 import { flattenObjectToArray } from "../utils";
+import { IStateTrackers, FormStateTrackers } from "../types/FormStateTrackers";
 
 export function useFormFieldState<T extends { [field: string]: any }>(dataObject: T, config?: FormVaidationConfig) {
   const [errorFlatList, setErrorFlatList] = useState<IValidationErrorMessage[]>([]);
-  const { touchedStateTracker, dirtyStateTracker, errorStateTracker: validStateTracker } = useStateTrackers(dataObject, config);
+  const stateTrackers = useRef<IStateTrackers<T>>(new FormStateTrackers(dataObject, config));
   const [, setIteration] = useState(0);
 
   function TriggerChange() {
     setIteration(x => x + 1);
   }
+
+  const touchedStateTracker = stateTrackers.current.touchedStateTracker;
+  const dirtyStateTracker = stateTrackers.current.dirtyStateTracker;
+  const validStateTracker = stateTrackers.current.errorStateTracker;
+
+
   //#region touched functions
   function getFieldTouched(fieldName: string): boolean {
     return touchedStateTracker.getMutatedByAttributeName(fieldName);
