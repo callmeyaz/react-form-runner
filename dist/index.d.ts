@@ -48,9 +48,9 @@ declare function useFormValidation<T extends KeyValuePair>(validator: IFormValid
 declare const useMabel: typeof useFormValidation;
 
 interface IStateTrackers<T> {
-    readonly touchedStateTracker: IMutationTracker<boolean, T>;
-    readonly dirtyStateTracker: IMutationTracker<boolean, T>;
-    readonly errorStateTracker: IMutationTracker<string[], T>;
+    readonly touchedStateTracker: IMutationTracker<T, boolean>;
+    readonly dirtyStateTracker: IMutationTracker<T, boolean>;
+    readonly errorStateTracker: IMutationTracker<T, string[]>;
 }
 declare class FormStateTrackers<T extends {
     [field: string]: any;
@@ -58,9 +58,9 @@ declare class FormStateTrackers<T extends {
     private _touchedStateTracker;
     private _dirtyStateTracker;
     private _errorStateTracker;
-    get touchedStateTracker(): IMutationTracker<boolean, T>;
-    get dirtyStateTracker(): IMutationTracker<boolean, T>;
-    get errorStateTracker(): IMutationTracker<string[], T>;
+    get touchedStateTracker(): IMutationTracker<T, boolean>;
+    get dirtyStateTracker(): IMutationTracker<T, boolean>;
+    get errorStateTracker(): IMutationTracker<T, string[]>;
     constructor(dataObject: T, config?: FormValidationConfig);
 }
 

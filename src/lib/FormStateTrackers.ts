@@ -2,26 +2,26 @@ import { IMutationTracker, MutationTracker } from "mutation-tracker";
 import { FormValidationConfig } from "./FormValidationConfig";
 
 export interface IStateTrackers<T> {
-  readonly touchedStateTracker: IMutationTracker<boolean, T>;
-  readonly dirtyStateTracker: IMutationTracker<boolean, T>;
-  readonly errorStateTracker: IMutationTracker<string[], T>;
+  readonly touchedStateTracker: IMutationTracker<T, boolean>;
+  readonly dirtyStateTracker: IMutationTracker<T, boolean>;
+  readonly errorStateTracker: IMutationTracker<T, string[]>;
 }
 
 export class FormStateTrackers<T extends { [field: string]: any } | {}> implements IStateTrackers<T> {
 
-  private _touchedStateTracker: IMutationTracker<boolean, T>;
-  private _dirtyStateTracker: IMutationTracker<boolean, T>;
-  private _errorStateTracker: IMutationTracker<string[], T>;
+  private _touchedStateTracker: IMutationTracker<T, boolean>;
+  private _dirtyStateTracker: IMutationTracker<T, boolean>;
+  private _errorStateTracker: IMutationTracker<T, string[]>;
 
-  public get touchedStateTracker(): IMutationTracker<boolean, T> {
+  public get touchedStateTracker(): IMutationTracker<T, boolean> {
     return this._touchedStateTracker;
   }
 
-  public get dirtyStateTracker(): IMutationTracker<boolean, T> {
+  public get dirtyStateTracker(): IMutationTracker<T, boolean> {
     return this._dirtyStateTracker;
   }
 
-  public get errorStateTracker(): IMutationTracker<string[], T> {
+  public get errorStateTracker(): IMutationTracker<T, string[]> {
     return this._errorStateTracker;
   }
 
