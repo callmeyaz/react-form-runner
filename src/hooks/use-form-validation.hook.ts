@@ -7,7 +7,7 @@ import { useFormFieldState } from "./use-form-field-state.hook";
 
 
 
-export function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormVaidationConfig) {
+export const useMabel = function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormVaidationConfig) {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const {

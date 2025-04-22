@@ -34,7 +34,7 @@ type FormVaidationConfig = {
     initiallyDirty?: string[];
 };
 
-declare function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormVaidationConfig): {
+declare const useMabel: <T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormVaidationConfig) => {
     errorFlatList: IValidationErrorMessage[];
     errors: mutation_tracker.MutatedAttribute<T, string[]>;
     touched: mutation_tracker.MutatedAttribute<T, boolean>;
@@ -57,13 +57,6 @@ declare function useFormValidation<T extends KeyValuePair>(validator: IFormValid
     getFieldValid: (fieldName: string) => boolean;
     getFieldErrors: (fieldName: string) => string[];
 };
-
-declare const useFormValidation_hook_useFormValidation: typeof useFormValidation;
-declare namespace useFormValidation_hook {
-  export {
-    useFormValidation_hook_useFormValidation as useFormValidation,
-  };
-}
 
 declare function useStateTrackers<T extends {
     [field: string]: any;
@@ -134,4 +127,4 @@ declare function flattenObjectToArray(obj: any, separator: string): {
     value: any;
 }[];
 
-export { flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormValidation_hook as useMabel, useStateTrackers };
+export { flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useMabel, useStateTrackers };
