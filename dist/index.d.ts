@@ -2,19 +2,6 @@ import * as mutation_tracker from 'mutation-tracker';
 import { KeyValuePair } from 'mutation-tracker';
 
 /**
- * Type represents state of a form field
- */
-type FormFieldState<T> = {
-    name: string;
-    touched: boolean;
-    dirty: boolean;
-    isValid: boolean;
-    currentValue: T;
-    previousValue: T;
-    errors: string[];
-};
-
-/**
  * interface for validation error message
  */
 type IValidationErrorMessage = {
@@ -96,6 +83,19 @@ declare function useStateTrackers<T extends {
     };
 };
 
+/**
+ * Type represents state of a form field
+ */
+type FormFieldState<T> = {
+    name: string;
+    touched: boolean;
+    dirty: boolean;
+    isValid: boolean;
+    currentValue: T;
+    previousValue: T;
+    errors: string[];
+};
+
 declare function useFormFieldState<T extends {
     [field: string]: any;
 }>(dataObject: T, config?: FormVaidationConfig): {
@@ -127,4 +127,12 @@ declare function flattenObjectToArray(obj: any, separator: string): {
     value: any;
 }[];
 
+/**
+ * Type that represents submission state of form.
+ */
+type FormSubmissionState = {
+    eventSource: string | null;
+};
+
 export { flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useMabel, useStateTrackers };
+export type { FormFieldState, FormSubmissionState, FormVaidationConfig, IFormValidator, IValidationErrorMessage };
