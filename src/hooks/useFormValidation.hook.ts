@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { KeyValuePair } from 'mutation-tracker';
-import { IFormValidator } from "../types/IFormValidator";
-import { IValidationErrorMessage } from "../types/IValidationErrorMessage";
-import { FormVaidationConfig } from "../types/FormVaidationConfig";
+import { IFormValidator } from "../lib/IFormValidator";
+import { IValidationErrorMessage } from "../lib/IValidationErrorMessage";
+import { FormValidationConfig } from "../lib/FormValidationConfig";
 import { useFormFieldState } from "./useFormFieldState.hook";
 
-export function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormVaidationConfig) {
+export function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormValidationConfig) {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const {

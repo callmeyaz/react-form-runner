@@ -1,5 +1,5 @@
 import * as mutation_tracker from 'mutation-tracker';
-import { KeyValuePair } from 'mutation-tracker';
+import { KeyValuePair, IMutationTracker, MutatedAttribute } from 'mutation-tracker';
 
 /**
  * interface for validation error message
@@ -16,12 +16,12 @@ interface IFormValidator<M extends IValidationErrorMessage> {
     validate: (data: any) => Promise<M[]>;
 }
 
-type FormVaidationConfig = {
+type FormValidationConfig = {
     initiallyTouched?: string[];
     initiallyDirty?: string[];
 };
 
-declare const useMabel: <T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormVaidationConfig) => {
+declare function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormValidationConfig): {
     errorFlatList: IValidationErrorMessage[];
     errors: mutation_tracker.MutatedAttribute<T, string[]>;
     touched: mutation_tracker.MutatedAttribute<T, boolean>;
@@ -45,43 +45,24 @@ declare const useMabel: <T extends KeyValuePair>(validator: IFormValidator<IVali
     getFieldErrors: (fieldName: string) => string[];
 };
 
-declare function useStateTrackers<T extends {
+declare const useMabel: typeof useFormValidation;
+
+interface IStateTrackers<T> {
+    readonly touchedStateTracker: IMutationTracker<boolean, T>;
+    readonly dirtyStateTracker: IMutationTracker<boolean, T>;
+    readonly errorStateTracker: IMutationTracker<string[], T>;
+}
+declare class FormStateTrackers<T extends {
     [field: string]: any;
-} | {}>(dataObject: T, config?: FormVaidationConfig): {
-    errorStateTracker: {
-        readonly initiallyMutatedAttributes: string[] | undefined;
-        readonly initiallyMutatedValue: string[] | undefined;
-        readonly state: mutation_tracker.MutatedAttribute<T, string[]>;
-        clear: () => void;
-        reset: () => void;
-        setAll: (value: string[]) => void;
-        getMutatedByAttributeName: (attributeName: string) => string[];
-        setMutatedByAttributeName: (value: string[], attributeName: string) => void;
-        setMutatedByAttributeNames: (value: string[], attributeNames: string[]) => void;
-    };
-    touchedStateTracker: {
-        readonly initiallyMutatedAttributes: string[] | undefined;
-        readonly initiallyMutatedValue: boolean | undefined;
-        readonly state: mutation_tracker.MutatedAttribute<T, boolean>;
-        clear: () => void;
-        reset: () => void;
-        setAll: (value: boolean) => void;
-        getMutatedByAttributeName: (attributeName: string) => boolean;
-        setMutatedByAttributeName: (value: boolean, attributeName: string) => void;
-        setMutatedByAttributeNames: (value: boolean, attributeNames: string[]) => void;
-    };
-    dirtyStateTracker: {
-        readonly initiallyMutatedAttributes: string[] | undefined;
-        readonly initiallyMutatedValue: boolean | undefined;
-        readonly state: mutation_tracker.MutatedAttribute<T, boolean>;
-        clear: () => void;
-        reset: () => void;
-        setAll: (value: boolean) => void;
-        getMutatedByAttributeName: (attributeName: string) => boolean;
-        setMutatedByAttributeName: (value: boolean, attributeName: string) => void;
-        setMutatedByAttributeNames: (value: boolean, attributeNames: string[]) => void;
-    };
-};
+} | {}> implements IStateTrackers<T> {
+    private _touchedStateTracker;
+    private _dirtyStateTracker;
+    private _errorStateTracker;
+    get touchedStateTracker(): IMutationTracker<boolean, T>;
+    get dirtyStateTracker(): IMutationTracker<boolean, T>;
+    get errorStateTracker(): IMutationTracker<string[], T>;
+    constructor(dataObject: T, config?: FormValidationConfig);
+}
 
 /**
  * Type represents state of a form field
@@ -98,7 +79,7 @@ type FormFieldState<T> = {
 
 declare function useFormFieldState<T extends {
     [field: string]: any;
-}>(dataObject: T, config?: FormVaidationConfig): {
+}>(dataObject: T, config?: FormValidationConfig): {
     errorFlatList: IValidationErrorMessage[];
     errors: mutation_tracker.MutatedAttribute<T, string[]>;
     touched: mutation_tracker.MutatedAttribute<T, boolean>;
@@ -127,6 +108,53 @@ declare function flattenObjectToArray(obj: any, separator: string): {
     value: any;
 }[];
 
+interface IFormStateValidation<T> {
+    readonly errorFlatList: IValidationErrorMessage[];
+    readonly errors: MutatedAttribute<T, string[]>;
+    readonly touched: MutatedAttribute<T, boolean>;
+    readonly dirty: MutatedAttribute<T, boolean>;
+    getFieldTouched: (fieldName: string) => boolean;
+    setFieldTouched: (value: boolean, fieldName: string) => void;
+    setFieldsTouched: (value: boolean, fieldNames: string[]) => void;
+    setTouchedAll: (value: boolean) => void;
+    getFieldDirty: (fieldName: string) => boolean;
+    setFieldDirty: (value: boolean, fieldName: string) => void;
+    setFieldsDirty: (value: boolean, fieldNames: string[]) => void;
+    setDirtyAll: (value: boolean) => void;
+    getFieldErrors: (fieldName: string) => string[];
+    getFieldValid: (fieldName: string) => boolean;
+    setErrorsAll: (errors: IValidationErrorMessage[]) => void;
+    isFormDirty: () => boolean;
+    isFormValid: () => boolean;
+    getFieldState: <T>(name: string, currentValue: T, previousValue: T) => FormFieldState<T>;
+}
+declare class FormStateValidation<T extends {
+    [field: string]: any;
+}> implements IFormStateValidation<T> {
+    private _stateTrackers;
+    private _errorFlatList;
+    constructor(dataObject: T, config?: FormValidationConfig);
+    get errorFlatList(): IValidationErrorMessage[];
+    get errors(): {};
+    get touched(): {};
+    get dirty(): {};
+    private setErrorFlatList;
+    getFieldTouched(fieldName: string): boolean;
+    setFieldTouched(value: boolean, fieldName: string): void;
+    setFieldsTouched(value: boolean, fieldNames: string[]): void;
+    setTouchedAll(value: boolean): void;
+    getFieldDirty(fieldName: string): boolean;
+    setFieldDirty(value: boolean, fieldName: string): void;
+    setFieldsDirty(value: boolean, fieldNames: string[]): void;
+    setDirtyAll(value: boolean): void;
+    getFieldErrors(fieldName: string): string[];
+    getFieldValid(fieldName: string): boolean;
+    setErrorsAll(errors: IValidationErrorMessage[]): void;
+    isFormDirty(): boolean;
+    isFormValid(): boolean;
+    getFieldState<T>(name: string, currentValue: T, previousValue: T): FormFieldState<T>;
+}
+
 /**
  * Type that represents submission state of form.
  */
@@ -134,5 +162,5 @@ type FormSubmissionState = {
     eventSource: string | null;
 };
 
-export { flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useMabel, useStateTrackers };
-export type { FormFieldState, FormSubmissionState, FormVaidationConfig, IFormValidator, IValidationErrorMessage };
+export { FormStateTrackers, FormStateValidation, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormValidation, useMabel };
+export type { FormFieldState, FormSubmissionState, FormValidationConfig, IFormStateValidation, IFormValidator, IStateTrackers, IValidationErrorMessage };

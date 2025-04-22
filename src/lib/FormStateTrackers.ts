@@ -1,5 +1,5 @@
 import { IMutationTracker, MutationTracker } from "mutation-tracker";
-import { FormVaidationConfig } from "./FormVaidationConfig";
+import { FormValidationConfig } from "./FormValidationConfig";
 
 export interface IStateTrackers<T> {
   readonly touchedStateTracker: IMutationTracker<boolean, T>;
@@ -25,7 +25,7 @@ export class FormStateTrackers<T extends { [field: string]: any } | {}> implemen
     return this._errorStateTracker;
   }
 
-  constructor(dataObject: T, config?: FormVaidationConfig) {
+  constructor(dataObject: T, config?: FormValidationConfig) {
     this._touchedStateTracker = MutationTracker(dataObject, {
       defaultValue: false,
       initialMutation: {
