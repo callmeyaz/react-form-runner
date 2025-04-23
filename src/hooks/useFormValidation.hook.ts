@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { KeyValuePair } from 'mutation-tracker';
-import { IFormValidator } from "../lib/IFormValidator";
-import { IValidationErrorMessage } from "../lib/IValidationErrorMessage";
-import { FormValidationConfig } from "../lib/FormValidationConfig";
 import { useFormFieldState } from "./useFormFieldState.hook";
+import { FormValidationConfig, IFormValidator, IValidationErrorMessage } from "form-runner";
 
 export function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormValidationConfig) {
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -27,7 +25,8 @@ export function useFormValidation<T extends KeyValuePair>(validator: IFormValida
     getFieldState,
     isFormDirty,
     isFormValid,
-  } = useFormFieldState(dataObject, config)
+    validateAsync,
+  } = useFormFieldState(validator, dataObject, config)
 
   //#region system functions
 
@@ -38,19 +37,11 @@ export function useFormValidation<T extends KeyValuePair>(validator: IFormValida
   function validate(): boolean {
     var result: boolean = false;
     (
-      async () => await validateAsync()
+      async () => await validateAsync(dataObject)
         .then((response) => result = response)
         .catch(() => result = false)
     )();
     return result;
-  }
-
-  function validateAsync(): Promise<boolean> {
-    return validator.validate(dataObject)
-      .then((response) => {
-        setErrorsAll(response);
-        return isFormValid();
-      });
   }
 
   function setIsSubmitting(isSubmitting: boolean): void {

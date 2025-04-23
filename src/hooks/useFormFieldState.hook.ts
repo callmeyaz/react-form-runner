@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
-import { FormValidationConfig } from "../lib/FormValidationConfig";
-import { FormFieldState } from "../lib/FormFieldState";
-import { IValidationErrorMessage } from "../lib/IValidationErrorMessage";
-import { FormStateValidation, IFormStateValidation } from "../lib/FormStateValidation";
+import { IFormValidator, IValidationErrorMessage, FormValidationConfig, FormStateValidation, IFormStateValidation, FormFieldState } from "form-runner";
 
-export function useFormFieldState<T extends { [field: string]: any }>(dataObject: T, config?: FormValidationConfig) {
-  const validationTrackerRef = useRef<IFormStateValidation<T>>(new FormStateValidation(dataObject, config));
+
+export function useFormFieldState<T extends { [field: string]: any }>(
+  validator: IFormValidator<IValidationErrorMessage>,
+  dataObject: T,
+  config?: FormValidationConfig) {
+
+  const validationTrackerRef = useRef<IFormStateValidation<T>>(new FormStateValidation(validator, dataObject, config));
   const validationTracker = validationTrackerRef.current;
   const [, setIteration] = useState(0);
 
@@ -102,7 +104,8 @@ export function useFormFieldState<T extends { [field: string]: any }>(dataObject
     getFieldErrors: getFieldErrors,
     setErrorsAll: setErrorsAll,
     isFormDirty: isFormDirty,
-    isFormValid: isFormValid
+    isFormValid: isFormValid,
+    validateAsync: validationTracker.validateAsync
   }
 
 }
