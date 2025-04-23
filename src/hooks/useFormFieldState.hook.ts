@@ -68,10 +68,6 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     return validationTracker.getFieldValid(fieldName)
   }
 
-  function setErrorsAll(errors: IValidationErrorMessage[]) {
-    validationTracker.setErrorsAll(errors);
-    TriggerChange();
-  }
   //#endregion
 
   function isFormDirty(): boolean {
@@ -84,6 +80,15 @@ export function useFormFieldState<T extends { [field: string]: any }>(
 
   function getFieldState<T>(name: string, currentValue: T, previousValue: T): FormFieldState<T> {
     return validationTracker.getFieldState(name, currentValue, previousValue);
+  }
+
+  function validateAsync(model: T) {
+    return validationTracker
+      .validateAsync(model)
+      .then(response => {
+        TriggerChange();
+        return response;
+      })
   }
 
   return {
@@ -102,10 +107,9 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     setDirtyAll: setDirtyAll,
     getFieldValid: getFieldValid,
     getFieldErrors: getFieldErrors,
-    setErrorsAll: setErrorsAll,
     isFormDirty: isFormDirty,
     isFormValid: isFormValid,
-    validateAsync: validationTracker.validateAsync
+    validateAsync: validateAsync
   }
 
 }

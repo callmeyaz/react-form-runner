@@ -21,7 +21,6 @@ export function useFormValidation<T extends KeyValuePair>(validator: IFormValida
     setDirtyAll,
     getFieldValid,
     getFieldErrors,
-    setErrorsAll,
     getFieldState,
     isFormDirty,
     isFormValid,

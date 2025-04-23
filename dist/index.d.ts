@@ -47,7 +47,6 @@ declare function useFormFieldState<T extends {
     setDirtyAll: (value: boolean) => void;
     getFieldValid: (fieldName: string) => boolean;
     getFieldErrors: (fieldName: string) => string[];
-    setErrorsAll: (errors: IValidationErrorMessage[]) => void;
     isFormDirty: () => boolean;
     isFormValid: () => boolean;
     validateAsync: (model: T) => Promise<boolean>;
