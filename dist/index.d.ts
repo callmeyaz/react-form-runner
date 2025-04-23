@@ -27,7 +27,7 @@ declare function useFormValidation<T extends KeyValuePair>(validator: IFormValid
     getFieldErrors: (fieldName: string) => string[];
 };
 
-declare const useMabel: typeof useFormValidation;
+declare const useFormRunner: typeof useFormValidation;
 
 declare function useFormFieldState<T extends {
     [field: string]: any;
@@ -61,4 +61,4 @@ declare function flattenObjectToArray(obj: any, separator: string): {
 }[];
 declare function deepFreeze<T>(obj: T): T;
 
-export { deepFreeze, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormValidation, useMabel };
+export { deepFreeze, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormRunner, useFormValidation };

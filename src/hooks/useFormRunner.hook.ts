@@ -1,3 +1,3 @@
 import { useFormValidation } from "./useFormValidation.hook";
 
-export const useMabel = useFormValidation;
+export const useFormRunner = useFormValidation;
