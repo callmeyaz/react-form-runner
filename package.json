@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
     "rollup": "rollup -c --bundleConfigAsCjs",
-    "dev": "npm update --save && rollup -c --bundleConfigAsCjs",
+    "dev": "npm run pkg && rollup -c --bundleConfigAsCjs",
     "pkg": "npm update --save"
   },
   "devDependencies": {
