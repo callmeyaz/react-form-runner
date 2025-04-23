@@ -1,2 +1,2 @@
 # react-form-runner
-Hook for painless form validation.
+React port of form-runner.

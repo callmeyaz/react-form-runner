@@ -1,12 +1,16 @@
 {
   "name": "react-form-runner",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Hook for painless form validation.",
   "private": false,
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callmeyaz/react-form-runner.git"
+  },
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
     "rollup": "rollup -c --bundleConfigAsCjs",
