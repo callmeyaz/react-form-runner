@@ -107,6 +107,7 @@ declare function flattenObjectToArray(obj: any, separator: string): {
     key: string;
     value: any;
 }[];
+declare function deepFreeze<T>(obj: T): T;
 
 interface IFormStateValidation<T> {
     readonly errorFlatList: IValidationErrorMessage[];
@@ -162,5 +163,5 @@ type FormSubmissionState = {
     eventSource: string | null;
 };
 
-export { FormStateTrackers, FormStateValidation, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormValidation, useMabel };
+export { FormStateTrackers, FormStateValidation, deepFreeze, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormValidation, useMabel };
 export type { FormFieldState, FormSubmissionState, FormValidationConfig, IFormStateValidation, IFormValidator, IStateTrackers, IValidationErrorMessage };
