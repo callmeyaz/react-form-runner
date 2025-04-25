@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { KeyValuePair } from 'mutation-tracker';
 import { useFormFieldState } from "./useFormFieldState.hook";
-import { FormValidationConfig, IFormValidator, IValidationErrorMessage } from "form-runner";
+import { FormStateConfig, IFormValidator, IValidationMessage } from "form-runner";
 
-export function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormValidationConfig) {
+export function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig) {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const {

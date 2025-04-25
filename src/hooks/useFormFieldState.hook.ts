@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
-import { IFormValidator, IValidationErrorMessage, FormValidationConfig, FormStateValidation, IFormStateValidation, FormFieldState } from "form-runner";
+import { IFormValidator, FormStateValidation, FormFieldState, IValidationMessage, FormStateConfig } from "form-runner";
+import { IFormStateValidation } from "form-runner/dist/types/lib/IFormStateValidation";
 
 
 export function useFormFieldState<T extends { [field: string]: any }>(
-  validator: IFormValidator<IValidationErrorMessage>,
+  validator: IFormValidator<IValidationMessage>,
   dataObject: T,
-  config?: FormValidationConfig) {
+  config?: FormStateConfig) {
 
   const validationTrackerRef = useRef<IFormStateValidation<T>>(new FormStateValidation(validator, dataObject, config));
   const validationTracker = validationTrackerRef.current;

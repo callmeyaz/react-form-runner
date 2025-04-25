@@ -1,10 +1,10 @@
 import * as form_runner from 'form-runner';
-import { IFormValidator, IValidationErrorMessage, FormValidationConfig, FormFieldState } from 'form-runner';
+import { IFormValidator, IValidationMessage, FormStateConfig, FormFieldState } from 'form-runner';
 import * as mutation_tracker from 'mutation-tracker';
 import { KeyValuePair } from 'mutation-tracker';
 
-declare function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormValidationConfig): {
-    errorFlatList: IValidationErrorMessage[];
+declare function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
+    errorFlatList: IValidationMessage[];
     errors: mutation_tracker.MutatedAttribute<T, string[]>;
     touched: mutation_tracker.MutatedAttribute<T, boolean>;
     dirty: mutation_tracker.MutatedAttribute<T, boolean>;
@@ -31,8 +31,8 @@ declare const useFormRunner: typeof useFormValidation;
 
 declare function useFormFieldState<T extends {
     [field: string]: any;
-}>(validator: IFormValidator<IValidationErrorMessage>, dataObject: T, config?: FormValidationConfig): {
-    errorFlatList: IValidationErrorMessage[];
+}>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
+    errorFlatList: IValidationMessage[];
     errors: mutation_tracker.MutatedAttribute<T, string[]>;
     touched: mutation_tracker.MutatedAttribute<T, boolean>;
     dirty: mutation_tracker.MutatedAttribute<T, boolean>;
