@@ -1,6 +1,6 @@
 {
   "name": "react-form-runner",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Hook for painless form validation.",
   "private": false,
   "license": "MIT",
@@ -24,7 +24,7 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^19.1.2",
-    "form-runner": "^0.0.8",
+    "form-runner": "^0.0.9",
     "lodash-es": "^4.17.21",
     "mutation-tracker": "^1.0.31",
     "react": "^19.1.0",
@@ -37,7 +37,7 @@
   "peerDependencies": {
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^19.1.2",
-    "form-runner": "^0.0.8",
+    "form-runner": "^0.0.9",
     "lodash-es": "^4.17.21",
     "mutation-tracker": "^1.0.31",
     "react": "^19.0.0"
