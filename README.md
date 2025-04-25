@@ -36,33 +36,38 @@ Plugging in an validation library is very straight forward. Just provide impleme
 Below is the implement validator for Yup. Prety simple isn't it?
 
 ```javascript
-export interface IYupValidationMessage extends IValidationMessage, Record<string, unknown> {
-    errorCode: string
+interface IYupValidationMessage 
+  extends IValidationMessage, Record<string, unknown> {
+  errorCode: string
 }
 
-export class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> implements IFormValidator<IYupValidationMessage> {
+class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
+  implements IFormValidator<IYupValidationMessage> {
+  
   constructor(private validationSchema: Yup.ObjectSchema<T>) { }
 
   public validate(data: T): Promise<IYupValidationMessage[]> {
     return this.validationSchema.validate(data, { abortEarly: false })
       .then((_) => [])
       .catch((err) => {
-      // Make sure errors returned by Yup Validation Tests are typed to IYupValidationMessage interface
-      //  Example:
-      //  Yup.string().defined()
-      //      .test(function (item) {
-      //      if (!item) {
-      //        return this.createError({
-      //        message: {
-      //          key: this.path,  message: "Firstname is not provided."
-      //        } as Yup.Message<IYupValidationMessage>
-      //        });
-      //      }
-      //      return true;
-      //      })
-          return err.errors as IYupValidationMessage[];
+        // Make sure errors returned by Yup Validation Tests are 
+        // typed to IYupValidationMessage interface.
+
+        //  Example:
+        //  Yup.string().defined()
+        //    .test(function (item) {
+        //      if (!item) {
+        //        return this.createError({
+        //        message: {
+        //          key: this.path,  message: "Firstname is not provided."
+        //        } as Yup.Message<IYupValidationMessage>
+        //        });
+        //      }
+        //    return true;
+        //   })
+        return err.errors as IYupValidationMessage[];
       });
-    }
+  }
 }
 ```
 
@@ -77,22 +82,30 @@ Below is an implementation of Form validation using React Form Runner and Yup va
 export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
   name: Yup.object({
     firstname: Yup.string().defined().test(function(val) { return !val ?
-      this.createError({ message: { key: this.path, message: "First name not provided" } as Yup.Message<IYupValidationMessage> })
+      this.createError({ 
+        message: { key: this.path, message: "First name not provided" } 
+          as Yup.Message<IYupValidationMessage> })
       : true 
     }),
     lastname: Yup.string().defined().test(function(val) { return !val ?
-      this.createError({ message: { key: this.path, message: "Last name not provided" } as Yup.Message<IYupValidationMessage> })
+      this.createError({ 
+        message: { key: this.path, message: "Last name not provided" }
+          as Yup.Message<IYupValidationMessage> })
       : true 
     })
   }),
   roles:  Yup.array().defined().of(
     Yup.string().defined().test(function(val) { return !val ?
-      this.createError({ message: { key: this.path, message: "Role not provided" } as Yup.Message<IYupValidationMessage> })
+      this.createError({ 
+        message: { key: this.path, message: "Role not provided" } 
+          as Yup.Message<IYupValidationMessage> })
       : true 
     })
   ),
   address: Yup.string().defined().test(function(val) { return !val ?
-    this.createError({ message: { key: this.path, message: "Address not provided" } as Yup.Message<IYupValidationMessage> })
+    this.createError({ 
+      message: { key: this.path, message: "Address not provided" } 
+        as Yup.Message<IYupValidationMessage> })
     : true 
   })
 });
@@ -139,7 +152,8 @@ export default function App() {
       </div>
       <div>
         <ul>
-          {!!touched?.name?.firstname && errors?.name?.firstname?.map((item: string, index: number) =>
+          {!!touched?.name?.firstname &&
+            errors?.name?.firstname?.map((item: string, index: number) =>
             <li key={index}>{item}</li>)}
         </ul>
         <div>First Name</div>
@@ -155,7 +169,8 @@ export default function App() {
       </div>
       <div>
         <ul>
-          {!!touched?.name?.lastname && errors?.name?.lastname?.map((item: string, index: number) =>
+          {!!touched?.name?.lastname &&
+            errors?.name?.lastname?.map((item: string, index: number) =>
             <li key={index}>{item}</li>)}
         </ul>
         <div>Last Name</div>
@@ -174,7 +189,8 @@ export default function App() {
           userState.roles.map((item, index) => (
             <div key={index}>
               <ul>
-                {!!touched?.roles?.[index] && errors?.roles?.[index]?.map((item: string, index: number) =>
+                {!!touched?.roles?.[index] &&
+                  errors?.roles?.[index]?.map((item: string, index: number) =>
                   <li key={index}>{item}</li>)}
               </ul>
               <input key={index} defaultValue={item} onChange={
@@ -192,7 +208,8 @@ export default function App() {
       </div>
       <div>
         <ul>
-          {!!touched?.address && errors?.address?.map((item: string, index: number) =>
+          {!!touched?.address &&
+            errors?.address?.map((item: string, index: number) =>
             <li key={index}>{item}</li>)}
         </ul>
         <div>Address</div>
