@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-import { IFormValidator, FormStateValidation, FormFieldState, IValidationMessage, FormStateConfig } from "form-runner";
-import { IFormStateValidation } from "form-runner/dist/types/lib/IFormStateValidation";
+import { IFormValidator, FormRunner, FormFieldState, IValidationMessage, FormStateConfig, IFormRunner } from "form-runner";
 
 
 export function useFormFieldState<T extends { [field: string]: any }>(
@@ -8,7 +7,7 @@ export function useFormFieldState<T extends { [field: string]: any }>(
   dataObject: T,
   config?: FormStateConfig) {
 
-  const validationTrackerRef = useRef<IFormStateValidation<T>>(new FormStateValidation(validator, dataObject, config));
+  const validationTrackerRef = useRef<IFormRunner<T>>(new FormRunner(validator, dataObject, config));
   const validationTracker = validationTrackerRef.current;
   const [, setIteration] = useState(0);
 
