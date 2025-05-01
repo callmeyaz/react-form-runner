@@ -1,13 +1,14 @@
 import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
-import { getAttributeMutation, setAttributeMutated } from 'mutation-tracker';
+import { getDeep as getDeepValue }  from 'form-runner';
+import { setDeep as setDeepValue }  from 'form-runner';
 
 export function getDeep<T>(obj: any, path: string): T {
-  return getAttributeMutation(obj, path)
+  return getDeepValue(obj, path)
 }
 
 export function setDeep<T>(obj: any, value: T, path: string): any {
-  return setAttributeMutated(obj, value, path);
+  return setDeepValue(obj, value, path);
 }
 
 export function flattenObject(obj: any, separator: string) {

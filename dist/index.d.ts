@@ -1,20 +1,21 @@
 import * as form_runner from 'form-runner';
 import { IFormValidator, IValidationMessage, FormStateConfig, FormFieldState } from 'form-runner';
-import * as mutation_tracker from 'mutation-tracker';
-import { KeyValuePair } from 'mutation-tracker';
 
+interface KeyValuePair {
+    [field: string]: any;
+}
 declare function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
     errorFlatList: IValidationMessage[];
-    errors: mutation_tracker.MutatedAttribute<T, string[]>;
-    touched: mutation_tracker.MutatedAttribute<T, boolean>;
-    dirty: mutation_tracker.MutatedAttribute<T, boolean>;
+    errors: MutatedAttribute<T_1, string[]>;
+    touched: MutatedAttribute<T_1, boolean>;
+    dirty: MutatedAttribute<T_1, boolean>;
     isSubmitting: boolean;
     isFormDirty: () => boolean;
     isFormValid: () => boolean;
     validateAsync: (model: T) => Promise<boolean>;
     validate: () => boolean;
     setIsSubmitting: (isSubmitting: boolean) => void;
-    getFieldState: <T_1>(name: string, currentValue: T_1, previousValue: T_1) => form_runner.FormFieldState<T_1>;
+    getFieldState: <T_2>(name: string, currentValue: T_2, previousValue: T_2) => form_runner.FormFieldState<T_2>;
     getFieldTouched: (fieldName: string) => boolean;
     setFieldTouched: (value: boolean, fieldName: string) => void;
     setFieldsTouched: (value: boolean, fieldNames: string[]) => void;
@@ -33,10 +34,10 @@ declare function useFormFieldState<T extends {
     [field: string]: any;
 }>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
     errorFlatList: IValidationMessage[];
-    errors: mutation_tracker.MutatedAttribute<T, string[]>;
-    touched: mutation_tracker.MutatedAttribute<T, boolean>;
-    dirty: mutation_tracker.MutatedAttribute<T, boolean>;
-    getFieldState: <T_1>(name: string, currentValue: T_1, previousValue: T_1) => FormFieldState<T_1>;
+    errors: MutatedAttribute<T_1, string[]>;
+    touched: MutatedAttribute<T_1, boolean>;
+    dirty: MutatedAttribute<T_1, boolean>;
+    getFieldState: <T_2>(name: string, currentValue: T_2, previousValue: T_2) => FormFieldState<T_2>;
     getFieldTouched: (fieldName: string) => boolean;
     setFieldTouched: (value: boolean, fieldName: string) => void;
     setFieldsTouched: (value: boolean, fieldNames: string[]) => void;
@@ -62,3 +63,4 @@ declare function flattenObjectToArray(obj: any, separator: string): {
 declare function deepFreeze<T>(obj: T): T;
 
 export { deepFreeze, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormRunner, useFormValidation };
+export type { KeyValuePair };
