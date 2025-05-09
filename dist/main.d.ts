@@ -53,8 +53,6 @@ declare function useFormFieldState<T extends {
     validateAsync: (model: T) => Promise<boolean>;
 };
 
-declare function getDeep<T>(obj: any, path: string): T;
-declare function setDeep<T>(obj: any, value: T, path: string): any;
 declare function flattenObject(obj: any, separator: string): {};
 declare function flattenObjectToArray(obj: any, separator: string): {
     key: string;
@@ -62,5 +60,5 @@ declare function flattenObjectToArray(obj: any, separator: string): {
 }[];
 declare function deepFreeze<T>(obj: T): T;
 
-export { deepFreeze, flattenObject, flattenObjectToArray, getDeep, setDeep, useFormFieldState, useFormRunner, useFormValidation };
+export { deepFreeze, flattenObject, flattenObjectToArray, useFormFieldState, useFormRunner, useFormValidation };
 export type { KeyValuePair };

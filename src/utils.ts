@@ -1,15 +1,5 @@
 import isArray from 'lodash-es/isArray';
 import isObject from 'lodash-es/isObject';
-import { getDeep as getDeepValue }  from 'form-runner';
-import { setDeep as setDeepValue }  from 'form-runner';
-
-export function getDeep<T>(obj: any, path: string): T {
-  return getDeepValue(obj, path)
-}
-
-export function setDeep<T>(obj: any, value: T, path: string): any {
-  return setDeepValue(obj, value, path);
-}
 
 export function flattenObject(obj: any, separator: string) {
   function recursive(current: any, parentKey: string = '', separator: string = ".") {
