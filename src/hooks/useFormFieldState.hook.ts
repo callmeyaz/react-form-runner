@@ -78,6 +78,10 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     return validationTracker.isFormValid();
   }
 
+  function isFormTouched(): boolean {
+    return validationTracker.isFormTouched();
+  }
+
   function getFieldState<T>(name: string, currentValue: T, previousValue: T): FormFieldState<T> {
     return validationTracker.getFieldState(name, currentValue, previousValue);
   }
@@ -108,6 +112,7 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     getFieldValid: getFieldValid,
     getFieldErrors: getFieldErrors,
     isFormDirty: isFormDirty,
+    isFormTouched: isFormTouched,
     isFormValid: isFormValid,
     validateAsync: validateAsync
   }

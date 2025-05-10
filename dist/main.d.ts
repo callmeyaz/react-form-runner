@@ -4,13 +4,14 @@ import { IFormValidator, IValidationMessage, FormStateConfig, FormFieldState } f
 interface KeyValuePair {
     [field: string]: any;
 }
-declare function useFormValidation<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
+declare function useFormRunner<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
     errorFlatList: IValidationMessage[];
     errors: MutatedAttribute<T_1, string[]>;
     touched: MutatedAttribute<T_1, boolean>;
     dirty: MutatedAttribute<T_1, boolean>;
     isSubmitting: boolean;
     isFormDirty: () => boolean;
+    isFormTouched: () => boolean;
     isFormValid: () => boolean;
     validateAsync: (model: T) => Promise<boolean>;
     validate: () => boolean;
@@ -27,8 +28,6 @@ declare function useFormValidation<T extends KeyValuePair>(validator: IFormValid
     getFieldValid: (fieldName: string) => boolean;
     getFieldErrors: (fieldName: string) => string[];
 };
-
-declare const useFormRunner: typeof useFormValidation;
 
 declare function useFormFieldState<T extends {
     [field: string]: any;
@@ -49,9 +48,10 @@ declare function useFormFieldState<T extends {
     getFieldValid: (fieldName: string) => boolean;
     getFieldErrors: (fieldName: string) => string[];
     isFormDirty: () => boolean;
+    isFormTouched: () => boolean;
     isFormValid: () => boolean;
     validateAsync: (model: T) => Promise<boolean>;
 };
 
-export { useFormFieldState, useFormRunner, useFormValidation };
+export { useFormFieldState, useFormRunner };
 export type { KeyValuePair };
