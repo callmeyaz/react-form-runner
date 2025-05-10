@@ -34,13 +34,13 @@ export function useFormRunner<T extends KeyValuePair>(validator: IFormValidator<
   //#region system functions
 
   useEffect(() => {
-    validate();
+    validate(dataObject);
   }, [])
 
-  function validate(): boolean {
+  function validate(model: T): boolean {
     var result: boolean = false;
     (
-      async () => await validateAsync(dataObject)
+      async () => await validateAsync(model)
         .then((response) => result = response)
         .catch(() => result = false)
     )();
