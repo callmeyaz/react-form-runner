@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useFormFieldState } from "./useFormFieldState.hook";
 import { FormStateConfig, IFormValidator, IValidationMessage } from "form-runner";
 
+export { type IValidationMessage } from "form-runner";
+
 export interface KeyValuePair {
   [field: string]: any;
 }

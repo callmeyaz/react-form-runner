@@ -1,6 +1,6 @@
 {
   "name": "react-form-runner",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Hook for painless form validation.",
   "private": false,
   "license": "MIT",
