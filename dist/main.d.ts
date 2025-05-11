@@ -1,5 +1,6 @@
 import * as form_runner from 'form-runner';
 import { IFormValidator, IValidationMessage, FormStateConfig, FormFieldState } from 'form-runner';
+export { IValidationMessage } from 'form-runner';
 import * as mutation_tracker from 'mutation-tracker';
 
 interface KeyValuePair {
