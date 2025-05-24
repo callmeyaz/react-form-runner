@@ -1,7 +1,13 @@
 import { useRef, useState } from "react";
 import { IFormValidator, FormRunner, FormFieldState, IValidationMessage, FormStateConfig, IFormRunner } from "form-runner";
 
-
+/**
+ * 
+ * @param validator Validator to validate the data object for errors
+ * @param dataObject JSON Object to initialize the hook.
+ * @param config Configuration to initialize hook.
+ * @returns returns useFormFieldState hook reference.
+ */
 export function useFormFieldState<T extends { [field: string]: any }>(
   validator: IFormValidator<IValidationMessage>,
   dataObject: T,
@@ -15,7 +21,6 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     setIteration(x => x + 1);
   }
 
-  //#region touched functions
   function getFieldTouched(fieldName: string): boolean {
     return validationTracker.getFieldTouched(fieldName);
   }
@@ -34,9 +39,7 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     validationTracker.setTouchedAll(value);
     TriggerChange();
   }
-  //#endregion
 
-  //#region dirty functions
   function getFieldDirty(fieldName: string): boolean {
     return validationTracker.getFieldDirty(fieldName);
   }
@@ -55,20 +58,14 @@ export function useFormFieldState<T extends { [field: string]: any }>(
     validationTracker.setDirtyAll(value);
     TriggerChange();
   }
-  //#endregion
 
-  //#region error functions
   function getFieldErrors(fieldName: string): string[] {
     return validationTracker.getFieldErrors(fieldName);
   }
-  //#endregion
 
-  //#region validation functions
   function getFieldValid(fieldName: string): boolean {
     return validationTracker.getFieldValid(fieldName)
   }
-
-  //#endregion
 
   function isFormDirty(): boolean {
     return validationTracker.isFormDirty();

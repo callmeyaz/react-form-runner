@@ -4,11 +4,9 @@ import { FormStateConfig, IFormValidator, IValidationMessage } from "form-runner
 
 export { type IValidationMessage } from "form-runner";
 
-export interface KeyValuePair {
-  [field: string]: any;
-}
-
-export function useFormRunner<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig) {
+export function useFormRunner<T extends { [field: string]: any }>(
+  validator: IFormValidator<IValidationMessage>,
+  dataObject: T, config?: FormStateConfig) {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const {
@@ -33,8 +31,6 @@ export function useFormRunner<T extends KeyValuePair>(validator: IFormValidator<
     validateAsync,
   } = useFormFieldState(validator, dataObject, config)
 
-  //#region system functions
-
   useEffect(() => {
     validate(dataObject);
   }, [])
@@ -52,9 +48,6 @@ export function useFormRunner<T extends KeyValuePair>(validator: IFormValidator<
   function setIsSubmitting(isSubmitting: boolean): void {
     setSubmitting(isSubmitting);
   }
-
-  //#endregion
-
 
   return {
     errorFlatList: errorFlatList,

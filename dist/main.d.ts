@@ -3,10 +3,9 @@ import { IFormValidator, IValidationMessage, FormStateConfig, FormFieldState } f
 export { IValidationMessage } from 'form-runner';
 import * as mutation_tracker from 'mutation-tracker';
 
-interface KeyValuePair {
+declare function useFormRunner<T extends {
     [field: string]: any;
-}
-declare function useFormRunner<T extends KeyValuePair>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
+}>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
     errorFlatList: IValidationMessage[];
     errors: mutation_tracker.MutatedAttribute<T, string[]>;
     touched: mutation_tracker.MutatedAttribute<T, boolean>;
@@ -31,6 +30,13 @@ declare function useFormRunner<T extends KeyValuePair>(validator: IFormValidator
     getFieldErrors: (fieldName: string) => string[];
 };
 
+/**
+ *
+ * @param validator Validator to validate the data object for errors
+ * @param dataObject JSON Object to initialize the hook.
+ * @param config Configuration to initialize hook.
+ * @returns returns useFormFieldState hook reference.
+ */
 declare function useFormFieldState<T extends {
     [field: string]: any;
 }>(validator: IFormValidator<IValidationMessage>, dataObject: T, config?: FormStateConfig): {
@@ -56,4 +62,3 @@ declare function useFormFieldState<T extends {
 };
 
 export { useFormFieldState, useFormRunner };
-export type { KeyValuePair };
