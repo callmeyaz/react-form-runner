@@ -1,9 +1,9 @@
 # react-form-runner 0.0.12
-**React Form Runner** is a front-end form validation and management library for **react**. It is built on top of **[form-runner](https://www.npmjs.com/package/form-runner)**.
+**React Form Runner** is Form validation and management library for **react**. It is built on top of **[form-runner](https://www.npmjs.com/package/form-runner)**.  
 
-React-form-runner provides **userFormRunner()** hook for handling form data, validations, errors, dirty and touched states.
+React-form-runner provides **userFormRunner()** hook for handling Form data, validation errors, dirty and touched states.  
 
-You can use any data validation library with react-form-runner, whether it's Yup, Zod, Joi or any other.
+We can use any data validation library with react-form-runner, whether it's [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) or any other validation library.
 
 ### How to Use?
 
@@ -15,7 +15,7 @@ In a browser:
 <input type="text" id="lastname" />
 <textarea id="address"></textarea>
 ```
-The JSON object below represents the state of a HTML form above:
+The JSON object below represents the state of a HTML Form above:
 ```javascript
 var user = {
   name: {
@@ -46,25 +46,27 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
   
   constructor(private validationSchema: Yup.ObjectSchema<T>) { }
 
+// Make sure errors returned by Yup Schema Validation are typed to IYupValidationMessage interface.
+// Below, we achieve that using test() functions for Yup Schema which sets errors of type IYupValidationMessage.
+// We can setup up multiple test for same property since form-runner can manage multiple errors for same Form field.
+
+//  Example:
+//  Yup.string().defined()
+//    .test(function (item) {
+//      if (!item) {
+//        return this.createError({
+//        message: {
+//          key: this.path,  message: "Firstname is not provided."
+//        } as Yup.Message<IYupValidationMessage>
+//        });
+//      }
+//    return true;
+//   })
+
   public validate(data: T): Promise<IYupValidationMessage[]> {
     return this.validationSchema.validate(data, { abortEarly: false })
       .then((_) => [])
       .catch((err) => {
-        // Make sure errors returned by Yup Validation Tests are 
-        // typed to IYupValidationMessage interface.
-
-        //  Example:
-        //  Yup.string().defined()
-        //    .test(function (item) {
-        //      if (!item) {
-        //        return this.createError({
-        //        message: {
-        //          key: this.path,  message: "Firstname is not provided."
-        //        } as Yup.Message<IYupValidationMessage>
-        //        });
-        //      }
-        //    return true;
-        //   })
         return err.errors as IYupValidationMessage[];
       });
   }
@@ -73,9 +75,11 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
 
 ### Step 2 - Start using *FormRunner*
 
-In your component,  make use of useFormRunner for your form by passing it the validator and object to validate. Then track changes to your form by tracking click and change events and validate your for when needed.
+In our react component, first we make use of useFormRunner by passing it a custom validator and object to validate.
 
-Below is an implementation of Form validation using React Form Runner and Yup validation library. 
+Then we track changes in the Form by tracking *click*, *blur* and *change* events and validate our Form when needed.
+
+Below is an implementation of Form validation using react-form-runner and Yup validation library. 
 
 ```javascript
 // Create Yup validation schema
