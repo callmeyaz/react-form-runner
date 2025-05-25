@@ -5,7 +5,7 @@ React-form-runner provides **userFormRunner()** hook for handling Form data, val
 
 We can use any data validation library with react-form-runner, whether it's [Yup](https://github.com/jquense/yup), [Zod](https://github.com/colinhacks/zod), [Joi](https://github.com/hapijs/joi) or any other validation library.
 
-A test react application is available [here to download](https://github.com/callmeyaz/react-form-runner-app) 
+A demo react application is available [here to download](https://github.com/callmeyaz/react-form-runner-app) that provides a dashboard to show case almost all the react-form-runner API uses. 
 
 ### How to Use?
 
