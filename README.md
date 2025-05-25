@@ -71,11 +71,7 @@ class YupValidator<T extends Yup.Maybe<Yup.AnyObject>>
 }
 ```
 
-### Step 2 - Start using *FormRunner*
-
-In our react component, first we make use of useFormRunner by passing it a custom validator and object to validate.
-
-Then we track changes in the Form by tracking *click*, *blur* and *change* events and validate our Form when needed.
+### Step 3 - Create validation schema
 
 Below is an implementation of Form validation using react-form-runner and Yup validation library. 
 
@@ -103,6 +99,17 @@ export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
       : true 
     })
   });
+
+```
+
+### Step 3 - Start using *FormRunner*
+
+In our react component, first we make use of useFormRunner by passing it a custom validator and object to validate.
+
+Then we track changes in the Form by tracking *click*, *blur* and *change* events and validate our Form when needed.
+
+```javascript
+// Create React component
 
 export default function App() {
   const [userState, setUserState] = useState<User>(user);
