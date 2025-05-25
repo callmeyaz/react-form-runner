@@ -24,10 +24,6 @@ var user = {
     firstname: "John",
     lastname: "Doe"
   },
-    roles: [
-        "contributor",
-        ""
-    ],
   address: "123 Main Street"
 }
 ```
@@ -100,14 +96,6 @@ export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
         : true 
       })
     }),
-    roles:  Yup.array().defined().of(
-      Yup.string().defined().test(function(val) { return !val ?
-        this.createError({ 
-          message: { key: this.path, message: "Role not provided" } as 
-            Yup.Message<IYupValidationMessage> })
-        : true 
-      })
-    ),
     address: Yup.string().defined().test(function(val) { return !val ?
       this.createError({ 
         message: { key: this.path, message: "Address not provided" } as 
@@ -188,29 +176,6 @@ export default function App() {
             setFieldTouched(true, "name.lastname");
           }}
         />
-      </div>
-      <div>
-        <div>Roles</div>
-        {
-          userState.roles.map((item, index) => (
-            <div key={index}>
-              <ul>
-                {!!touched?.roles?.[index] &&
-                  errors?.roles?.[index]?.map((item: string, index: number) =>
-                  <li key={index}>{item}</li>)}
-              </ul>
-              <input key={index} defaultValue={item} onChange={
-                (e) => {
-                  setUserState(s => s && setDeep(s, e.target.value, `roles[${index}]`));
-                  setFieldDirty(true, `roles[${index}]`);
-                }}
-                onBlur={() => {
-                  setFieldTouched(true, `roles[${index}]`);
-                }}
-              />
-            </div>
-          ))
-        }
       </div>
       <div>
         <ul>
