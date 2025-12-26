@@ -1,4 +1,4 @@
-# react-form-runner 0.0.12
+# React-form-runner 0.0.12
 **React Form Runner** is Form validation and management library for **react**. It is built on top of **[form-runner](https://www.npmjs.com/package/form-runner)**.  
 
 React-form-runner provides **userFormRunner()** hook for handling Form data, validation errors, dirty and touched states.  
