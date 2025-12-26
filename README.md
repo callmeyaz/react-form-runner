@@ -31,9 +31,9 @@ var user = {
 ### Step 1 - Plug your favorite validation library to form-runner
 Choose one of the following validation plugins built for Yup, Zod or Joi validation libraries or [build your own](https://github.com/callmeyaz/react-form-runner?tab=readme-ov-file#step-1---plug-your-favorite-validation-library-to-form-runner):
 
-[Yup Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-yup-plugin)
-[zod Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-zod-plugin)
-[joi Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-joi-plugin)
+* [Yup Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-yup-plugin)
+* [zod Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-zod-plugin)
+* [joi Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-joi-plugin)
 
 ### Step 2 - Create validation schema
 
