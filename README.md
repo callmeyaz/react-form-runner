@@ -126,7 +126,7 @@ export default function App() {
           onChange={(e) => {
             setUserState(s => {
               var s = userState;
-              s.name.firstname = e.target.value;
+              s && s.name.firstname = e.target.value;
               return s;
             });
             setFieldDirty(true, "name.firstname");
@@ -146,7 +146,7 @@ export default function App() {
         <input onChange={(e) => {
             setUserState(s => {
               var s = userState;
-              s.name.lastname = e.target.value;
+              s && s.name.lastname = e.target.value;
               return s;
             });
           setFieldDirty(true, "name.lastname");
@@ -167,7 +167,7 @@ export default function App() {
           (e) => {
             setUserState(s => {
               var s = userState;
-              s.name.address = e.target.value;
+              s && s.name.address = e.target.value;
               return s;
             });
             setFieldDirty(true, "address");
