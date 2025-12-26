@@ -29,49 +29,13 @@ var user = {
 ```
 
 ### Step 1 - Plug your favorite validation library to form-runner
-Plugging in an validation library is very straight forward. Just provide implementation of two interfaces *IValidationMessage* and *IFormValidator* and you are done:
+Choose one of the following validation plugins built for Yup, Zod or Joi validation libraries or [build your own](https://github.com/callmeyaz/react-form-runner?tab=readme-ov-file#step-1---plug-your-favorite-validation-library-to-form-runner):
 
-Below is the implement validator for Yup. Prety simple isn't it?
+[Yup Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-yup-plugin)
+[zod Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-zod-plugin)
+[joi Validation plugin For Form-Runner](https://github.com/callmeyaz/form-runner-joi-plugin)
 
-```javascript
-interface IYupValidationMessage 
-  extends IValidationMessage, Record<string, unknown> {
-  errorCode: string
-}
-
-class YupValidator<T extends Yup.Maybe<Yup.AnyObject>> 
-  implements IFormValidator<IYupValidationMessage> {
-  
-  constructor(private validationSchema: Yup.ObjectSchema<T>) { }
-
-// Make sure errors returned by Yup Schema Validation are typed to IYupValidationMessage interface.
-// Below, we achieve that using test() functions for Yup Schema which sets errors of type IYupValidationMessage.
-// We can setup up multiple test for same property since form-runner can manage multiple errors for same Form field.
-
-//  Example:
-//  Yup.string().defined()
-//    .test(function (item) {
-//      if (!item) {
-//        return this.createError({
-//        message: {
-//          key: this.path,  message: "Firstname is not provided."
-//        } as Yup.Message<IYupValidationMessage>
-//        });
-//      }
-//    return true;
-//   })
-
-  public validate(data: T): Promise<IYupValidationMessage[]> {
-    return this.validationSchema.validate(data, { abortEarly: false })
-      .then((_) => [])
-      .catch((err) => {
-        return err.errors as IYupValidationMessage[];
-      });
-  }
-}
-```
-
-### Step 3 - Create validation schema
+### Step 2 - Create validation schema
 
 Below is an implementation of Form validation using react-form-runner and Yup validation library. 
 
@@ -102,7 +66,7 @@ export const userSchema: Yup.ObjectSchema<typeof user> = Yup.object({
 
 ```
 
-### Step 3 - Start using *FormRunner*
+### Step 3 - Use FormRunner
 
 In our react component, first we make use of useFormRunner by passing it a custom validator and object to validate.
 
