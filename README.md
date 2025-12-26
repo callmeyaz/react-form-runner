@@ -124,7 +124,11 @@ export default function App() {
         <div>First Name</div>
         <input
           onChange={(e) => {
-            setUserState(s => s && setDeep(s, e.target.value, "name.firstname"));
+            setUserState(s => {
+              var s = userState;
+              s.name.firstname = e.target.value;
+              return s;
+            });
             setFieldDirty(true, "name.firstname");
           }}
           onBlur={() => {
@@ -140,7 +144,11 @@ export default function App() {
         </ul>
         <div>Last Name</div>
         <input onChange={(e) => {
-          setUserState(s => s && setDeep(s, e.target.value, "name.lastname"));
+            setUserState(s => {
+              var s = userState;
+              s.name.lastname = e.target.value;
+              return s;
+            });
           setFieldDirty(true, "name.lastname");
         }}
           onBlur={() => {
@@ -157,7 +165,11 @@ export default function App() {
         <div>Address</div>
         <input onChange={
           (e) => {
-            setUserState(s => s && setDeep(s, e.target.value, "address"));
+            setUserState(s => {
+              var s = userState;
+              s.name.address = e.target.value;
+              return s;
+            });
             setFieldDirty(true, "address");
           }}
           onBlur={() => {
